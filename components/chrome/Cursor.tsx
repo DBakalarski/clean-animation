@@ -3,13 +3,15 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from '@/lib/gsap';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 export function Cursor() {
   const dotRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
-    if (reduced) return;
+    if (reduced || isMobile) return;
 
     const dot = dotRef.current;
     if (!dot) return;
@@ -46,10 +48,11 @@ export function Cursor() {
       document.removeEventListener('mouseover', onOver);
       document.removeEventListener('mouseout', onOut);
     };
-  }, [reduced]);
+  }, [reduced, isMobile]);
 
   // Do not mount for reduced-motion users
   if (reduced) return null;
+  if (isMobile) return null;
 
   return (
     <div

@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import { gsap, ScrollTrigger } from '@/lib/gsap';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { useIsMobile } from '@/hooks/useIsMobile';
 import { MaskReveal } from '@/components/ui/MaskReveal';
 import { copy } from '@/lib/copy';
 import { EASE, STAGGER } from '@/lib/easings';
@@ -15,6 +16,7 @@ import { EASE, STAGGER } from '@/lib/easings';
 function RadialMap() {
   const svgRef = useRef<SVGSVGElement>(null);
   const reduced = useReducedMotion();
+  const isMobile = useIsMobile();
 
   useGSAP(
     () => {
@@ -49,6 +51,8 @@ function RadialMap() {
       gsap.set(labels, { opacity: 0, y: 8 });
       if (center) gsap.set(center, { opacity: 0, scale: 0, transformOrigin: 'center center' });
 
+      const factor = isMobile ? 0.7 : 1;
+
       ScrollTrigger.create({
         trigger: svg,
         start: 'top 75%',
@@ -56,13 +60,13 @@ function RadialMap() {
         onEnter: () => {
           const tl = gsap.timeline();
           if (center) {
-            tl.to(center, { opacity: 1, scale: 1, duration: 0.6, ease: EASE.expoOut });
+            tl.to(center, { opacity: 1, scale: 1, duration: 0.6 * factor, ease: EASE.expoOut });
           }
           tl.to(
             rings,
             {
               strokeDashoffset: 0,
-              duration: 1.4,
+              duration: 1.4 * factor,
               ease: EASE.expoOut,
               stagger: STAGGER.base,
             },
@@ -73,7 +77,7 @@ function RadialMap() {
             {
               opacity: 1,
               y: 0,
-              duration: 0.6,
+              duration: 0.6 * factor,
               ease: EASE.expoOut,
               stagger: STAGGER.tight,
             },
@@ -82,7 +86,7 @@ function RadialMap() {
         },
       });
     },
-    { scope: svgRef, dependencies: [reduced] },
+    { scope: svgRef, dependencies: [reduced, isMobile] },
   );
 
   // 4 ring distances: 25, 50, 75, 100 km — scaled so 100km = 240px (radius)

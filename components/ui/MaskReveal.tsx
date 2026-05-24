@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import { gsap, ScrollTrigger } from '@/lib/gsap';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { useIsMobile } from '@/hooks/useIsMobile';
 import { EASE, DURATION } from '@/lib/easings';
 
 type MaskRevealFrom = 'bottom' | 'left';
@@ -29,6 +30,7 @@ export function MaskReveal({
 }: MaskRevealProps) {
   const containerRef = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
+  const isMobile = useIsMobile();
 
   useGSAP(
     () => {
@@ -44,17 +46,22 @@ export function MaskReveal({
       const clipFrom = from === 'bottom' ? 'inset(0 0 100% 0)' : 'inset(0 100% 0 0)';
       const clipTo = 'inset(0 0 0% 0)';
 
+      // Mobile: fire later (element further in view) and resolve ~30% faster.
+      // Only override start when caller is using the default — preserves custom triggers.
+      const effectiveTrigger = isMobile && trigger === 'top 92%' ? 'top 82%' : trigger;
+      const effectiveDuration = isMobile ? DURATION.reveal * 0.7 : DURATION.reveal;
+
       gsap.set(el, { clipPath: clipFrom });
 
       ScrollTrigger.create({
         trigger: el,
-        start: trigger,
+        start: effectiveTrigger,
         once: true,
         onEnter: () => {
           gsap.set(el, { willChange: 'clip-path' });
           gsap.to(el, {
             clipPath: clipTo,
-            duration: DURATION.reveal,
+            duration: effectiveDuration,
             ease: EASE.expoOut,
             delay,
             onComplete: () => {
@@ -64,7 +71,7 @@ export function MaskReveal({
         },
       });
     },
-    { scope: containerRef, dependencies: [reduced, delay, from, trigger] },
+    { scope: containerRef, dependencies: [reduced, isMobile, delay, from, trigger] },
   );
 
   return (

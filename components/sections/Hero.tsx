@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import { gsap, ScrollTrigger } from '@/lib/gsap';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { useIsMobile } from '@/hooks/useIsMobile';
 import { SplitText } from '@/components/ui/SplitText';
 import { MagneticButton } from '@/components/ui/MagneticButton';
 import { copy } from '@/lib/copy';
@@ -22,6 +23,7 @@ export function Hero() {
   const captionRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
+  const isMobile = useIsMobile();
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -99,21 +101,26 @@ export function Hero() {
         },
       );
 
-      // Subtle parallax — capped at -10% (was -20%) for gentler feel
-      ScrollTrigger.create({
-        trigger: section,
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1,
-        onUpdate: (self) => {
-          gsap.set(section, {
-            yPercent: -10 * self.progress,
-            opacity: 1 - 0.5 * self.progress,
-          });
-        },
-      });
+      // Subtle parallax — capped at -10% (was -20%) for gentler feel.
+      // Skipped on mobile: scrub:1 + per-frame transform of the whole section
+      // tanks scroll FPS on touch GPUs, and the WebGL background is already
+      // replaced by a static SVG fallback there.
+      if (!isMobile) {
+        ScrollTrigger.create({
+          trigger: section,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1,
+          onUpdate: (self) => {
+            gsap.set(section, {
+              yPercent: -10 * self.progress,
+              opacity: 1 - 0.5 * self.progress,
+            });
+          },
+        });
+      }
     },
-    { scope: sectionRef, dependencies: [reduced, ready] },
+    { scope: sectionRef, dependencies: [reduced, ready, isMobile] },
   );
 
   const handleScrollTo = (hash: string) => {

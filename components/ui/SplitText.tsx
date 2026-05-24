@@ -3,6 +3,7 @@
 import React, { useRef, useState, useEffect, useLayoutEffect } from 'react';
 import { gsap, ScrollTrigger } from '@/lib/gsap';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { useIsMobile } from '@/hooks/useIsMobile';
 import { EASE, DURATION, STAGGER } from '@/lib/easings';
 import { pageReady } from '@/lib/pageReady';
 
@@ -43,6 +44,7 @@ export function SplitText({
 }: SplitTextProps) {
   const containerRef = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
+  const isMobile = useIsMobile();
   const [ready, setReady] = useState(false);
 
   // Pre-paint: ukryj spany przez gsap.set bezpośrednio (zamiast vanilla DOM)
@@ -93,6 +95,12 @@ export function SplitText({
     let tween: gsap.core.Tween | null = null;
     let st: ScrollTrigger | null = null;
 
+    // Mobile (scroll trigger only): trigger later and resolve ~30% faster.
+    // Load-trigger (Hero intro) keeps full duration — it's not part of scroll flow.
+    const dur =
+      isMobile && trigger === 'scroll' ? DURATION.slow * 0.7 : DURATION.slow;
+    const startPos = isMobile ? 'top 82%' : 'top 92%';
+
     const tweenSpans = () => {
       tween = gsap.fromTo(
         spans,
@@ -100,7 +108,7 @@ export function SplitText({
         {
           yPercent: 0,
           opacity: 1,
-          duration: DURATION.slow,
+          duration: dur,
           ease: EASE.expoOut,
           stagger,
           delay,
@@ -118,7 +126,7 @@ export function SplitText({
     } else {
       st = ScrollTrigger.create({
         trigger: el,
-        start: 'top 92%',
+        start: startPos,
         once: true,
         onEnter: tweenSpans,
       });
@@ -131,7 +139,7 @@ export function SplitText({
       tween?.kill();
       st?.kill();
     };
-  }, [ready, reduced, stagger, delay, trigger]);
+  }, [ready, reduced, isMobile, stagger, delay, trigger]);
 
   const tokens: string[] =
     split === 'words' ? children.split(/(\s+)/) : children.split('');
