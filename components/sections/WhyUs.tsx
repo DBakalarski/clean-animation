@@ -13,13 +13,13 @@ export function WhyUs() {
         {/* Header */}
         <header className="mb-16 md:mb-24 space-y-4 max-w-3xl">
           <MaskReveal>
-            <p className="caption-mono text-ink/50">{w.eyebrow}</p>
+            <p className="caption-mono text-ink/60">{w.eyebrow}</p>
           </MaskReveal>
           <MaskReveal delay={0.1}>
             <h2
               id="whyus-heading"
               className="font-serif text-ink leading-[1.05] tracking-tight"
-              style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}
+              style={{ fontSize: 'clamp(1.75rem, 4vw, 3rem)' }}
             >
               {w.title}
             </h2>

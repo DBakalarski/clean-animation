@@ -9,14 +9,42 @@ import { MaskReveal } from '@/components/ui/MaskReveal';
 import { copy } from '@/lib/copy';
 import { EASE, STAGGER } from '@/lib/easings';
 
+// 4 ring distances: 25, 50, 75, 100 km — scaled so 100 km = 240 px radius
+const RING_KM = [25, 50, 75, 100];
+// 100 km maps to 240 px → 1 km = 2.4 px
+const PX_PER_KM = 2.4;
+// SVG centre
+const CX = 300;
+const CY = 300;
+
+/**
+ * Angle convention used throughout RadialMap:
+ *   0°   = East  (right)
+ *   90°  = South (down)
+ *   180° = West  (left)
+ *   270° = North (up)
+ * Clockwise, matching SVG y-down coordinate space.
+ */
+function cityPosition(angle: number, km: number) {
+  const rad = (angle * Math.PI) / 180;
+  return {
+    cx: CX + km * PX_PER_KM * Math.cos(rad),
+    cy: CY + km * PX_PER_KM * Math.sin(rad),
+    rad,
+  };
+}
+
 /**
  * Editorial radial map — concentric rings centred on Konin.
  * Pure SVG, no external map provider. Each ring = 25 km.
+ * Cities from copy.area.cities are plotted as ink dots with mono labels.
  */
 function RadialMap() {
   const svgRef = useRef<SVGSVGElement>(null);
   const reduced = useReducedMotion();
   const isMobile = useIsMobile();
+
+  const cities = copy.area.cities;
 
   useGSAP(
     () => {
@@ -26,8 +54,11 @@ function RadialMap() {
       const rings = svg.querySelectorAll<SVGCircleElement>('[data-ring]');
       const labels = svg.querySelectorAll<SVGGElement>('[data-label]');
       const center = svg.querySelector<SVGCircleElement>('[data-center]');
+      const cityDots = svg.querySelectorAll<SVGCircleElement>('[data-city-dot]');
+      const cityLabels = svg.querySelectorAll<SVGTextElement>('[data-city-label]');
 
       if (reduced) {
+        // Immediately show end-state — no animation
         rings.forEach((r) => {
           r.style.strokeDasharray = 'none';
           r.style.strokeDashoffset = '0';
@@ -35,10 +66,17 @@ function RadialMap() {
         });
         labels.forEach((l) => (l.style.opacity = '1'));
         if (center) center.style.opacity = '1';
+        cityDots.forEach((d) => {
+          d.style.opacity = '1';
+          d.style.transform = 'scale(1)';
+        });
+        cityLabels.forEach((l) => {
+          l.style.opacity = '1';
+        });
         return;
       }
 
-      // Setup initial states — rings drawn as dasharray
+      // Setup initial states — rings drawn via dasharray
       rings.forEach((ring) => {
         const r = parseFloat(ring.getAttribute('r') ?? '0');
         const c = 2 * Math.PI * r;
@@ -50,6 +88,8 @@ function RadialMap() {
       });
       gsap.set(labels, { opacity: 0, y: 8 });
       if (center) gsap.set(center, { opacity: 0, scale: 0, transformOrigin: 'center center' });
+      gsap.set(cityDots, { opacity: 0, scale: 0, transformOrigin: 'center center' });
+      gsap.set(cityLabels, { opacity: 0, y: 4 });
 
       const factor = isMobile ? 0.7 : 1;
 
@@ -59,9 +99,11 @@ function RadialMap() {
         once: true,
         onEnter: () => {
           const tl = gsap.timeline();
+
           if (center) {
             tl.to(center, { opacity: 1, scale: 1, duration: 0.6 * factor, ease: EASE.expoOut });
           }
+
           tl.to(
             rings,
             {
@@ -72,6 +114,7 @@ function RadialMap() {
             },
             '-=0.3',
           );
+
           tl.to(
             labels,
             {
@@ -83,15 +126,36 @@ function RadialMap() {
             },
             '-=0.8',
           );
+
+          // City dots pop in after rings finish drawing
+          tl.to(
+            cityDots,
+            {
+              opacity: 1,
+              scale: 1,
+              duration: 0.5 * factor,
+              ease: EASE.expoOut,
+              stagger: STAGGER.tight,
+            },
+            '-=0.6',
+          );
+
+          tl.to(
+            cityLabels,
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.5 * factor,
+              ease: EASE.expoOut,
+              stagger: STAGGER.tight,
+            },
+            '-=0.4',
+          );
         },
       });
     },
     { scope: svgRef, dependencies: [reduced, isMobile] },
   );
-
-  // 4 ring distances: 25, 50, 75, 100 km — scaled so 100km = 240px (radius)
-  const RING_KM = [25, 50, 75, 100];
-  const PX_PER_KM = 2.4;
 
   return (
     <svg
@@ -106,8 +170,8 @@ function RadialMap() {
         <circle
           key={km}
           data-ring
-          cx="300"
-          cy="300"
+          cx={CX}
+          cy={CY}
           r={km * PX_PER_KM}
           fill="none"
           stroke="var(--color-ink)"
@@ -117,12 +181,12 @@ function RadialMap() {
       ))}
 
       {/* Cardinal axis hairlines */}
-      <line x1="300" y1="60" x2="300" y2="540" stroke="var(--color-ink)" strokeOpacity="0.06" strokeWidth="0.5" />
-      <line x1="60" y1="300" x2="540" y2="300" stroke="var(--color-ink)" strokeOpacity="0.06" strokeWidth="0.5" />
+      <line x1={CX} y1="60" x2={CX} y2="540" stroke="var(--color-ink)" strokeOpacity="0.06" strokeWidth="0.5" />
+      <line x1="60" y1={CY} x2="540" y2={CY} stroke="var(--color-ink)" strokeOpacity="0.06" strokeWidth="0.5" />
 
       {/* Distance labels on east axis */}
       {RING_KM.map((km) => (
-        <g key={`lbl-${km}`} data-label transform={`translate(${300 + km * PX_PER_KM} 296)`}>
+        <g key={`lbl-${km}`} data-label transform={`translate(${CX + km * PX_PER_KM} ${CY - 4})`}>
           <text
             fontFamily="var(--font-mono), ui-monospace, monospace"
             fontSize="10"
@@ -137,16 +201,16 @@ function RadialMap() {
         </g>
       ))}
 
-      {/* Konin marker — centre */}
+      {/* Konin marker — centre (mint, rendered above rings but below city dots) */}
       <g>
         <circle
           data-center
-          cx="300"
-          cy="300"
+          cx={CX}
+          cy={CY}
           r="6"
           fill="var(--color-mint)"
         />
-        <g data-label transform="translate(300 282)">
+        <g data-label transform={`translate(${CX} ${CY - 18})`}>
           <text
             fontFamily="var(--font-fraunces), Georgia, serif"
             fontSize="18"
@@ -159,6 +223,48 @@ function RadialMap() {
           </text>
         </g>
       </g>
+
+      {/* Satellite city dots + labels — all cities with km > 0 */}
+      {cities
+        .filter((c) => c.km > 0)
+        .map((city, i) => {
+          const { cx, cy, rad } = cityPosition(city.angle, city.km);
+          // Label sits 12 px beyond the dot, away from centre
+          const LABEL_GAP = 12;
+          const lx = cx + LABEL_GAP * Math.cos(rad);
+          const ly = cy + LABEL_GAP * Math.sin(rad);
+          // textAnchor: if dot is on right half of SVG (cos > 0) → start; left half → end
+          const anchor = Math.cos(rad) >= 0 ? 'start' : 'end';
+          // Font size: outer cities (≥60 km) get 10px, inner get 9px — both legible after scale
+          const fontSize = city.km >= 60 ? 10 : 9;
+
+          return (
+            <g key={city.name} data-city-index={i}>
+              <circle
+                data-city-dot
+                cx={cx}
+                cy={cy}
+                r="3.5"
+                fill="var(--color-ink)"
+                fillOpacity="0.75"
+              />
+              <text
+                data-city-label
+                x={lx}
+                y={ly}
+                fontFamily="var(--font-mono), ui-monospace, monospace"
+                fontSize={fontSize}
+                fill="var(--color-ink)"
+                fillOpacity="0.7"
+                letterSpacing="0.08em"
+                textAnchor={anchor}
+                dominantBaseline="middle"
+              >
+                {city.name.toUpperCase()}
+              </text>
+            </g>
+          );
+        })}
     </svg>
   );
 }
@@ -173,13 +279,13 @@ export function Area() {
           {/* Text column */}
           <div className="md:col-span-5 md:sticky md:top-32 space-y-8">
             <MaskReveal>
-              <p className="caption-mono text-ink/50">{a.eyebrow}</p>
+              <p className="caption-mono text-ink/60">{a.eyebrow}</p>
             </MaskReveal>
             <MaskReveal delay={0.05}>
               <h2
                 id="area-heading"
                 className="font-serif text-ink leading-[1.05] tracking-tight"
-                style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}
+                style={{ fontSize: 'clamp(1.75rem, 4vw, 3rem)' }}
               >
                 {a.title}
               </h2>
@@ -194,29 +300,9 @@ export function Area() {
             </MaskReveal>
           </div>
 
-          {/* Map column */}
+          {/* Map column — city dots are rendered inside RadialMap SVG */}
           <div className="md:col-span-7">
             <RadialMap />
-
-            {/* City list under map */}
-            <ul
-              className="mt-10 flex flex-wrap justify-center gap-x-3 gap-y-3 max-w-xl mx-auto"
-              role="list"
-              aria-label="Przykładowe miejscowości w zasięgu"
-            >
-              {a.cities.map((city, i) => (
-                <MaskReveal
-                  key={city}
-                  as="li"
-                  delay={i * STAGGER.tight}
-                  className="inline-flex"
-                >
-                  <span className="font-mono text-xs uppercase tracking-widest text-ink/60 border border-ink/15 rounded-full px-3 py-1.5">
-                    {city}
-                  </span>
-                </MaskReveal>
-              ))}
-            </ul>
           </div>
         </div>
       </div>

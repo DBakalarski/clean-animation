@@ -106,7 +106,7 @@ export default function Faq() {
           {/* Section header */}
           <header className="mb-16 md:mb-24 space-y-4">
             <MaskReveal>
-              <p className="caption-mono text-ink/50">{faqEyebrow}</p>
+              <p className="caption-mono text-ink/60">{faqEyebrow}</p>
             </MaskReveal>
             <MaskReveal delay={0.1}>
               <h2

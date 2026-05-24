@@ -55,17 +55,33 @@ void main() {
   // Distance to mouse in aspect-correct space
   float d = length(uv - m);
 
-  // Ripple ring emanating from cursor position
-  float ripple = sin(d * 30.0 - uTime * 1.5) * exp(-d * 4.0) * 0.5;
+  // Ripple ring emanating from cursor position.
+  // exp(-d * 4.0) constrains it to ~400 px radius; when d is large this
+  // collapses to zero — which is exactly what we want for idle state.
+  float rippleRaw = sin(d * 30.0 - uTime * 1.5) * exp(-d * 4.0) * 0.5;
 
-  // Slow-moving ambient noise field
+  // Clamp to [0, 1]: only the "bright" phase of the ring carries mint.
+  // max(0) means the dark troughs don't subtract from the grain.
+  float ripplePos = max(0.0, rippleRaw);
+
+  // Slow-moving ambient noise field — this is the grain base.
   float n = fbm(uv * 2.0 + uTime * 0.1);
 
-  // Combine noise + ripple into a mask
-  float mask = smoothstep(0.3, 0.7, n + ripple);
+  // ── IDLE GRAIN ───────────────────────────────────────────────────────────
+  // Map FBM noise to a very narrow lightness shift around paper.
+  // n is in [-1, 1]; we modulate by ±0.025 so the grain stays monochromatic
+  // (ink-based, ~2-3% contrast) — no mint, no gradient, just texture.
+  float grain = n * 0.025;
+  vec3 idleColor = uBg + vec3(grain);   // paper ± tiny ink shift
 
-  // Very low-intensity mint blush over paper — no blobs, just breath
-  vec3 color = mix(uBg, uColor, mask * 0.18);
+  // ── ACTIVE RIPPLE (mint) ─────────────────────────────────────────────────
+  // Mint is gated entirely on the ripple signal.  When the cursor is still,
+  // ripplePos → 0 everywhere, so the mix factor → 0 and idleColor wins.
+  // The FBM modulates the ripple shape so it looks organic, not circular.
+  float rippleMask = ripplePos * (0.5 + 0.5 * n); // noise-shaped ripple
+  float mintFactor  = clamp(rippleMask * 2.5, 0.0, 1.0);
+
+  vec3 color = mix(idleColor, uColor, mintFactor * 0.55);
 
   gl_FragColor = vec4(color, 1.0);
 }

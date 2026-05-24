@@ -9,24 +9,24 @@ export function Process() {
       <div className="shell">
         {/* Eyebrow + heading */}
         <MaskReveal>
-          <span className="caption-mono text-ink/50">{copy.process.eyebrow}</span>
+          <span className="caption-mono text-ink/60">{copy.process.eyebrow}</span>
         </MaskReveal>
         <MaskReveal delay={0.1}>
           <h2
             id="process-heading"
             className="font-serif text-ink mt-4 leading-[1.05] tracking-tight max-w-3xl"
-            style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}
+            style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)' }}
           >
             {copy.process.title}
           </h2>
         </MaskReveal>
 
         {/* Step rows — full-width editorial table */}
-        <div className="mt-20 md:mt-28">
+        <div className="mt-12 md:mt-16">
           {copy.process.steps.map((step, i) => (
             <MaskReveal key={step.n} delay={i * 0.08}>
               <article
-                className="grid grid-cols-12 gap-6 md:gap-12 py-10 md:py-14 border-t border-ink/15 last:border-b"
+                className="grid grid-cols-12 gap-6 md:gap-12 py-7 md:py-10 border-t border-ink/15 last:border-b"
                 aria-label={`Krok ${step.n}: ${step.title}`}
               >
                 {/* Large number — col 1-3 */}
@@ -34,7 +34,7 @@ export function Process() {
                   <span
                     className="font-mono text-ink/40"
                     style={{
-                      fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
+                      fontSize: 'clamp(2rem, 4vw, 3rem)',
                       lineHeight: 1,
                       letterSpacing: '-0.02em',
                       display: 'inline-block',

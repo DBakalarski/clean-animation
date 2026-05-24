@@ -28,14 +28,14 @@ export function Cursor() {
     const onOver = (e: MouseEvent) => {
       const target = (e.target as HTMLElement).closest<HTMLElement>('[data-cursor="hover"]');
       if (target) {
-        gsap.to(dot, { scale: 1.8, duration: 0.35, ease: 'power3.out' });
+        gsap.to(dot, { scale: 1.8, opacity: 0.8, duration: 0.35, ease: 'power3.out' });
       }
     };
 
     const onOut = (e: MouseEvent) => {
       const target = (e.target as HTMLElement).closest<HTMLElement>('[data-cursor="hover"]');
       if (target) {
-        gsap.to(dot, { scale: 1, duration: 0.35, ease: 'power3.out' });
+        gsap.to(dot, { scale: 1, opacity: 0.5, duration: 0.35, ease: 'power3.out' });
       }
     };
 
@@ -65,8 +65,8 @@ export function Cursor() {
         width: 10,
         height: 10,
         borderRadius: '50%',
-        backgroundColor: 'var(--color-mint)',
-        mixBlendMode: 'difference',
+        backgroundColor: 'var(--color-ink)',
+        opacity: 0.5,
         pointerEvents: 'none',
         zIndex: 9999,
         // Start off-screen until first mousemove

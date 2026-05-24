@@ -10,12 +10,10 @@ type ServiceItem = { title: string; body: string };
 function ServiceColumn({
   kicker,
   heading,
-  lead,
   items,
 }: {
   kicker: string;
   heading: string;
-  lead?: string;
   items: readonly ServiceItem[];
 }) {
   return (
@@ -33,13 +31,6 @@ function ServiceColumn({
             {heading}
           </h3>
         </MaskReveal>
-        {lead && (
-          <MaskReveal delay={0.1}>
-            <p className="mt-4 font-serif text-ink/70 text-base md:text-lg leading-relaxed max-w-md">
-              {lead}
-            </p>
-          </MaskReveal>
-        )}
       </header>
 
       {/* Service list — hairline rows */}
@@ -51,13 +42,18 @@ function ServiceColumn({
             delay={i * STAGGER.tight}
             className="block border-b border-ink/15"
           >
-            <article className="py-6 md:py-8">
-              <h4 className="font-serif text-ink leading-snug tracking-tight text-lg md:text-xl">
-                {item.title}
-              </h4>
-              <p className="mt-2 font-serif text-ink/65 text-sm md:text-base leading-relaxed max-w-prose">
-                {item.body}
-              </p>
+            <article className="py-6 md:py-8 flex gap-5 md:gap-7 items-baseline">
+              <span className="font-mono text-xs text-ink/35 tabular-nums flex-shrink-0 pt-0.5">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <div>
+                <h4 className="font-serif text-ink leading-snug tracking-tight text-lg md:text-xl">
+                  {item.title}
+                </h4>
+                <p className="mt-2 font-serif text-ink/65 text-sm md:text-base leading-relaxed max-w-prose">
+                  {item.body}
+                </p>
+              </div>
             </article>
           </MaskReveal>
         ))}
@@ -96,13 +92,13 @@ export function Services() {
         {/* Section heading */}
         <header className="mb-20 md:mb-28 max-w-3xl">
           <MaskReveal>
-            <p className="caption-mono text-ink/50">{s.eyebrow}</p>
+            <p className="caption-mono text-ink/60">{s.eyebrow}</p>
           </MaskReveal>
           <MaskReveal delay={0.1}>
             <h2
               id="services-heading"
               className="mt-4 font-serif text-ink leading-[1.05] tracking-tight"
-              style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}
+              style={{ fontSize: 'clamp(1.75rem, 4vw, 3rem)' }}
             >
               {s.title}
             </h2>
@@ -119,7 +115,6 @@ export function Services() {
           <ServiceColumn
             kicker={s.commercial.kicker}
             heading={s.commercial.heading}
-            lead={s.commercial.lead}
             items={s.commercial.items}
           />
         </div>
@@ -147,13 +142,19 @@ export function Services() {
             >
               {s.additional.items.map((item, i) => (
                 <MaskReveal
-                  key={item}
+                  key={item.label}
                   as="li"
                   delay={i * STAGGER.tight}
                   className="inline-flex"
                 >
-                  <span className="font-mono text-xs uppercase tracking-widest text-ink/75 border border-ink/20 rounded-full px-3.5 py-2">
-                    {item}
+                  <span className="font-mono text-xs uppercase tracking-widest text-ink/75 border border-ink/20 rounded-full px-3.5 py-2 cursor-default select-none">
+                    {item.label}
+                    {'bullets' in item && item.bullets && (
+                      <>
+                        <span className="text-mint mx-2" aria-hidden="true">·</span>
+                        {(item.bullets as readonly string[]).join(' · ')}
+                      </>
+                    )}
                   </span>
                 </MaskReveal>
               ))}

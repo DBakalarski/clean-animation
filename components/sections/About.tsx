@@ -14,7 +14,7 @@ export function About() {
           {/* Eyebrow column */}
           <div className="md:col-span-4">
             <MaskReveal>
-              <p className="caption-mono text-ink/50">{a.eyebrow}</p>
+              <p className="caption-mono text-ink/60">{a.eyebrow}</p>
             </MaskReveal>
           </div>
 
@@ -47,27 +47,14 @@ export function About() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-16">
             <div className="md:col-span-4">
               <MaskReveal>
-                <p className="caption-mono text-ink/50">— {a.objectsLabel}</p>
+                <p className="caption-mono text-ink/60">— {a.objectsLabel}</p>
               </MaskReveal>
             </div>
-            <ul
-              className="md:col-span-8 flex flex-wrap gap-x-3 gap-y-3"
-              role="list"
-              aria-label={a.objectsLabel}
-            >
-              {a.objects.map((obj, i) => (
-                <MaskReveal
-                  key={obj}
-                  as="li"
-                  delay={i * STAGGER.tight}
-                  className="inline-flex"
-                >
-                  <span className="font-mono text-xs md:text-sm uppercase tracking-widest text-ink/75 border border-ink/20 rounded-full px-4 py-2">
-                    {obj}
-                  </span>
-                </MaskReveal>
-              ))}
-            </ul>
+            <MaskReveal className="md:col-span-8" delay={0.1}>
+              <p className="font-serif italic text-ink/70 text-lg md:text-xl leading-relaxed">
+                {a.objects.join(' · ')}
+              </p>
+            </MaskReveal>
           </div>
         </div>
       </div>

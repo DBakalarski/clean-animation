@@ -63,16 +63,18 @@ export function RippleFallback() {
             <feBlend in="SourceGraphic" in2="grey" mode="screen" />
           </filter>
         </defs>
-        {/* Mint-tinted rectangle drawn through the noise filter */}
+        {/*
+         * Ink-tinted (not mint) rectangle through the noise filter.
+         * fillOpacity 0.04 keeps it at ~2-3% contrast — monochromatic grain
+         * matching the WebGL idle state. No mint, no gradient blob.
+         */}
         <rect
           width="100%"
           height="100%"
-          fill="#2BD4C4"
-          fillOpacity="0.08"
+          fill="#0E1A1A"
+          fillOpacity="0.04"
           filter="url(#ripple-noise)"
           style={{
-            // Slow drift to give a living-noise feel without JS
-            // animation: 'noise-drift 60s linear infinite' — defined below
             animationName: 'rippleFallbackDrift',
             animationDuration: '60s',
             animationTimingFunction: 'linear',

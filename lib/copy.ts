@@ -38,15 +38,10 @@ export const copy = {
     headlineTop: 'Cleaning Service',
     headlineBottom: 'Konin',
     tagline: 'Sprawnie. Dokładnie. Dyskretnie. Przystępnie.',
-    caption:
-      'Profesjonalne usługi sprzątające dla klientów prywatnych i firmowych.',
-    description:
-      'Zapewniamy konkretną obsługę, indywidualne podejście i zakres prac dopasowany do rodzaju obiektu oraz oczekiwanego efektu.',
+    caption: `Konin · 100 km w każdą stronę · tel. ${PHONE_DISPLAY}`,
     ctas: [
       { label: 'Zamów wycenę', href: '#cta', kind: 'primary' as const },
-      { label: 'Zobacz ofertę', href: '#services', kind: 'ghost' as const },
       { label: 'Zadzwoń', href: `tel:${PHONE_RAW}`, kind: 'outline' as const },
-      { label: 'Napisz wiadomość', href: '#cta', kind: 'ghost' as const },
     ],
   },
 
@@ -55,21 +50,17 @@ export const copy = {
     eyebrow: '— O nas',
     title: 'Sprzątanie, za którym stoi jakość, estetyka i odpowiedzialność.',
     paragraphs: [
-      'Cleaning Service Konin to marka stworzona dla klientów, którzy oczekują realnego efektu, a nie tylko powierzchownego sprzątania. Stawiamy na rzetelność, dokładność, uczciwe podejście i usługę dopasowaną do konkretnych potrzeb.',
-      'Działamy konkretnie, sprawnie i z wyczuciem. Zależy nam nie tylko na samym porządku, ale też na komforcie współpracy i tym, żeby klient od początku wiedział, czego może się spodziewać.',
+      'Konin i okolice do 100 km — klienci prywatni i firmowi. Własny sprzęt, sprawdzone ekipy, zakres ustalany przed każdą realizacją.',
+      'Bez presji — zakres i cenę ustalamy podczas kontaktu. Ekipa wchodzi po uzgodnieniu szczegółów.',
     ],
     objectsLabel: 'Obsługujemy',
     objects: [
       'mieszkania',
-      'domy',
       'biura',
-      'lokale użytkowe',
-      'domki letniskowe',
-      'apartamenty na wynajem',
-      'obiekty noclegowe',
       'hotele',
-      'kampery',
-      'nagrobki',
+      'biura coworkingowe',
+      'lokale gastronomiczne',
+      'obiekty po remoncie',
     ],
   },
 
@@ -95,51 +86,51 @@ export const copy = {
       items: [
         {
           title: 'Sprzątanie mieszkań i domów',
-          body: 'Regularne oraz jednorazowe sprzątanie dopasowane do potrzeb klienta. Zakres ustalany jest indywidualnie i może obejmować bieżące utrzymanie porządku lub dokładniejsze sprzątanie wybranych pomieszczeń.',
+          body: 'Zakres ustalany indywidualnie — bieżące utrzymanie porządku lub dokładne sprzątanie wybranych pomieszczeń.',
         },
         {
           title: 'Sprzątanie cykliczne',
-          body: 'Stała współpraca dla osób, które chcą mieć porządek pod kontrolą bez konieczności organizowania wszystkiego od nowa za każdym razem. Wygodne, regularne, spokojne.',
+          body: 'Stała współpraca w rytmie dopasowanym do Twojego trybu. Raz ustalony zakres, bez organizowania od nowa.',
         },
         {
           title: 'Sprzątanie jednorazowe',
-          body: 'Dla osób potrzebujących jednorazowego doprowadzenia wnętrza do porządku, odświeżenia mieszkania lub przygotowania domu na ważną okazję.',
+          body: 'Jednorazowe doprowadzenie wnętrza do porządku — przed ważną okazją lub po dłuższej przerwie.',
         },
         {
-          title: 'Sprzątanie po remoncie',
-          body: 'Dokładne usuwanie kurzu, pyłu i zabrudzeń poremontowych. Przygotowujemy wnętrze do użytkowania, dbając o estetykę i wykończenie przestrzeni.',
+          title: 'Po remoncie',
+          body: 'Usuwanie kurzu, pyłu i zabrudzeń poremontowych. Wnętrze gotowe do użytkowania.',
         },
         {
-          title: 'Mycie okien i przeszkleń',
-          body: 'Dokładne mycie okien, ram, luster i innych powierzchni szklanych. Czystość, przejrzystość i estetyczny efekt — bez smug.',
+          title: 'Okna i przeszklenia',
+          body: 'Mycie okien, ram, luster i powierzchni szklanych. Bez smug, bez pozostałości.',
         },
         {
-          title: 'Pranie tapicerki meblowej',
-          body: 'Profesjonalne pranie kanap, narożników, foteli i krzeseł tapicerowanych. Odświeża wygląd mebli i poprawia komfort użytkowania.',
+          title: 'Tapicerki meblowe',
+          body: 'Pranie kanap, narożników, foteli i krzeseł tapicerowanych. Odświeżony wygląd, lepsza higiena.',
         },
         {
-          title: 'Pranie materacy',
-          body: 'Dokładne pranie materacy poprawiające higienę codziennego użytkowania i odświeżające powierzchnię do spania.',
+          title: 'Materace',
+          body: 'Pranie materacy przywracające higienę powierzchni do spania.',
         },
         {
-          title: 'Pranie wykładzin',
-          body: 'Odkurzanie i pranie wykładzin w domach, mieszkaniach i obiektach prywatnych. Świeżość, czystość i estetyka powierzchni tekstylnych.',
+          title: 'Wykładziny',
+          body: 'Odkurzanie i pranie wykładzin w domach i mieszkaniach. Świeżość tekstylnych powierzchni podłogowych.',
         },
         {
-          title: 'Sprzątanie domków letniskowych',
-          body: 'Przygotowanie obiektu do sezonu, odświeżenie wnętrza po dłuższej przerwie lub uporządkowanie domku po pobycie gości.',
+          title: 'Domki letniskowe',
+          body: 'Przygotowanie do sezonu, odświeżenie po dłuższej przerwie lub porządek po pobycie gości.',
         },
         {
-          title: 'Sprzątanie kamperów',
-          body: 'Sprzątanie wnętrza oraz mycie zewnętrznej części pojazdu — przed sezonem, po podróży albo przed sprzedażą.',
+          title: 'Kampery',
+          body: 'Wnętrze i zewnętrzna część pojazdu — przed sezonem, po podróży lub przed sprzedażą.',
         },
         {
           title: 'Opieka nad grobami',
-          body: 'Sprzątanie i uporządkowanie miejsca, mycie pomników, usuwanie zabrudzeń, wymiana zniczy oraz przygotowanie grobu przed świętami, rocznicami i ważnymi datami.',
+          body: 'Mycie pomników, usuwanie zabrudzeń, wymiana zniczy. Przygotowanie przed świętami i ważnymi datami.',
         },
         {
           title: 'Renowacja pomników z lastryko',
-          body: 'Dokładne wyczyszczenie, utwardzenie i zabezpieczenie przed czynnikami atmosferycznymi — wilgocią, ścieraniem oraz promieniowaniem.',
+          body: 'Czyszczenie, utwardzenie i zabezpieczenie przed wilgocią oraz czynnikami atmosferycznymi.',
         },
       ],
     },
@@ -147,24 +138,18 @@ export const copy = {
       kicker: 'Usługi dodatkowe',
       heading: 'Możesz dobrać konkretne elementy',
       items: [
-        'Czyszczenie i dezynfekcja piekarnika',
-        'Czyszczenie i dezynfekcja mikrofali',
-        'Czyszczenie i dezynfekcja lodówki',
-        'Czyszczenie i dezynfekcja zmywarki',
-        'Czyszczenie i dezynfekcja pralki',
-        'Czyszczenie i dezynfekcja suszarki',
-        'Mycie wnętrza szafek',
-        'Czyszczenie fug',
-        'Impregnacja fug',
-        'Mocniej zabrudzone kuchnie',
-        'Łazienki wymagające doczyszczenia',
-        'Wybrane strefy wymagające większej dokładności',
+        { label: 'AGD', bullets: ['piekarnik', 'mikrofala', 'lodówka', 'zmywarka', 'pralka', 'suszarka'] as const },
+        { label: 'Mycie wnętrza szafek' },
+        { label: 'Czyszczenie fug' },
+        { label: 'Impregnacja fug' },
+        { label: 'Mocniej zabrudzone kuchnie' },
+        { label: 'Łazienki wymagające doczyszczenia' },
+        { label: 'Wybrane strefy wymagające większej dokładności' },
       ],
     },
     commercial: {
       kicker: 'Segment komercyjny',
       heading: 'Profesjonalne sprzątanie dla firm i obiektów użytkowych',
-      lead: 'Czysta przestrzeń ma znaczenie dla komfortu pracowników, pierwszego wrażenia klientów i wizerunku firmy. Do każdego zlecenia podchodzimy odpowiedzialnie i konkretnie.',
       items: [
         {
           title: 'Sprzątanie biur',
@@ -172,7 +157,7 @@ export const copy = {
         },
         {
           title: 'Sprzątanie lokali użytkowych',
-          body: 'Usługi dla salonów, punktów usługowych, gabinetów i innych obiektów komercyjnych. Zakres ustalany indywidualnie.',
+          body: 'Salony, punkty usługowe, gabinety i inne obiekty komercyjne. Zakres ustalany indywidualnie.',
         },
         {
           title: 'Sprzątanie apartamentów na wynajem',
@@ -207,14 +192,10 @@ export const copy = {
     eyebrow: '— Dlaczego my',
     title: 'Pracujemy konkretnie, z wyczuciem i dbałością o detale.',
     items: [
-      { n: '01', title: 'Indywidualne podejście', body: 'Każde zlecenie traktujemy osobno — inne potrzeby ma mieszkanie, inne biuro, a jeszcze inne kamper czy nagrobek.' },
-      { n: '02', title: 'Dokładność i detale', body: 'Sprzątamy tak, żeby nie trzeba było po nas poprawiać. Zwracamy uwagę na miejsca, o których się zwykle zapomina.' },
-      { n: '03', title: 'Estetyczny efekt końcowy', body: 'Nie chodzi tylko o czystość — chodzi o wrażenie, jakie zostaje po wejściu do pomieszczenia.' },
-      { n: '04', title: 'Kultura pracy i dyskrecja', body: 'Działamy spokojnie, kulturalnie i z poszanowaniem przestrzeni klienta. Bez chaosu i bez zbędnych pytań.' },
-      { n: '05', title: 'Przejrzysta wycena', body: 'Wycena ustalana indywidualnie, ale zawsze konkretna, uczciwa i jasna na samym początku.' },
-      { n: '06', title: 'Klient prywatny i firmowy', body: 'Obsługujemy mieszkania, domy, biura, hotele, apartamenty, domki, kampery — pełne spektrum.' },
-      { n: '07', title: 'Jednorazowo lub na stałe', body: 'Możliwość pojedynczego zlecenia lub stałej, cyklicznej współpracy dopasowanej do trybu klienta.' },
-      { n: '08', title: 'Szeroki zakres usług', body: 'Również usługi specjalistyczne i sezonowe — od prania tapicerki po renowację pomników z lastryko.' },
+      { n: '01', title: 'Przejrzysta wycena', body: 'Zakres i cena ustalane przed wejściem ekipy. Żadnych kosztów, które pojawiają się po fakcie.' },
+      { n: '02', title: 'Dyskrecja i kultura pracy', body: 'Ekipa nie hałasuje i nie wychodzi poza ustalony zakres. Twoja przestrzeń pozostaje Twoja.' },
+      { n: '03', title: 'Jednorazowo lub na stałe', body: 'Możliwość pojedynczego zlecenia albo stałej współpracy w rytmie dopasowanym do Twojego trybu.' },
+      { n: '04', title: 'Sprzęt i specjalistyka', body: 'Tapicerki, lastryko, AGD parowe — narzędzia i metody, których gospodarka domowa nie zapewnia.' },
     ],
   },
 
@@ -235,7 +216,6 @@ export const copy = {
     label: 'Wycena',
     eyebrow: '— Wycena',
     title: 'Każda wycena ustalana jest indywidualnie.',
-    lead: 'Cena usługi zależy od kilku konkretnych czynników. Dzięki temu otrzymujesz uczciwą wycenę dopasowaną do rzeczywistego zakresu pracy.',
     factors: [
       'rodzaj obiektu',
       'wielkość powierzchni',
@@ -251,7 +231,6 @@ export const copy = {
       label: 'Zamów wycenę',
       href: '#cta',
     },
-    footnote: 'Uczciwa, konkretna wycena dopasowana do rzeczywistego zakresu pracy.',
   },
 
   area: {
@@ -261,24 +240,38 @@ export const copy = {
     body: 'Cleaning Service Konin obsługuje klientów prywatnych i firmowych na terenie Konina i okolic, do 100 km w każdą stronę. Szczegóły dojazdu i realizacji ustalane są indywidualnie podczas kontaktu.',
     radiusKm: 100,
     center: 'Konin',
-    cities: ['Konin', 'Turek', 'Słupca', 'Koło', 'Kalisz', 'Września', 'Łęczyca', 'Gniezno'],
+    // Angle convention: 0° = East (right), 90° = South (down), 180° = West (left), 270° = North (up).
+    // Clockwise, matching SVG y-down coordinate system.
+    // km = approximate straight-line distance from Konin centre.
+    cities: [
+      { name: 'Konin',    angle:   0, km:  0 }, // centrum — renderowany osobno jako mint dot
+      { name: 'Koło',     angle: 330, km: 30 }, // NE (~30 km): faktycznie na NE od Konina
+      { name: 'Turek',    angle: 130, km: 35 }, // SE (~35 km): Turek leży na SE od Konina
+      { name: 'Słupca',   angle: 185, km: 30 }, // W (~30 km): Słupca na zachód, lekko S
+      { name: 'Łęczyca',  angle:  95, km: 70 }, // E/SE (~70 km): Łęczyca na wschód od Konina
+      { name: 'Kalisz',   angle: 220, km: 65 }, // SW (~65 km): Kalisz na SW od Konina
+      { name: 'Września', angle: 250, km: 55 }, // WSW (~55 km): Września na zachód, lekko S
+      { name: 'Gniezno',  angle: 305, km: 75 }, // NW (~75 km): Gniezno na NW od Konina
+    ] as const,
     note: 'Dojazd ustalany indywidualnie',
   },
 
   gallery: {
     label: 'Galeria',
     eyebrow: '— Galeria realizacji',
-    title: 'Realizacje — przed i po.',
-    caption: 'Każde zdjęcie z prawdziwej realizacji.',
-    status: 'Galeria w trakcie aktualizacji — zdjęcia z realizacji wkrótce.',
-    // TODO: podmień placeholdery Picsum na zdjęcia z prawdziwych realizacji klienta
+    title: 'Przed i po.',
+    note: 'Schematyczne podglądy — zdjęcia z realizacji uzupełnimy w najbliższych dniach.',
+    beforeLabel: 'PRZED',
+    afterLabel: 'PO',
+    // TODO(photos): gdy klient dostarczy zdjęcia — uzupełnić pola `before` i `after`
+    // w każdej pozycji poniżej. Struktura siatki w Gallery.tsx pozostaje identyczna.
     items: [
-      { before: 'https://picsum.photos/seed/csk1b/600/800', after: 'https://picsum.photos/seed/csk1a/600/800', alt: 'Salon — przed i po', category: 'mieszkanie' },
-      { before: 'https://picsum.photos/seed/csk2b/600/700', after: 'https://picsum.photos/seed/csk2a/600/700', alt: 'Kuchnia — przed i po', category: 'mieszkanie' },
-      { before: 'https://picsum.photos/seed/csk3b/600/900', after: 'https://picsum.photos/seed/csk3a/600/900', alt: 'Łazienka — przed i po', category: 'po remoncie' },
-      { before: 'https://picsum.photos/seed/csk4b/600/650', after: 'https://picsum.photos/seed/csk4a/600/650', alt: 'Biuro — przed i po', category: 'biuro' },
-      { before: 'https://picsum.photos/seed/csk5b/600/750', after: 'https://picsum.photos/seed/csk5a/600/750', alt: 'Apartament — przed i po', category: 'apartament' },
-      { before: 'https://picsum.photos/seed/csk6b/600/800', after: 'https://picsum.photos/seed/csk6a/600/800', alt: 'Pomnik — przed i po', category: 'nagrobek' },
+      { caption: 'Mieszkanie po remoncie', meta: '62 m² · Konin · 4h' },
+      { caption: 'Biuro po malowaniu', meta: '120 m² · Konin · 6h' },
+      { caption: 'Kanapa z tkaniny', meta: 'Pranie ekstrakcyjne · 2h' },
+      { caption: 'Posadzka lastryko', meta: 'Polerowanie · 45 m²' },
+      { caption: 'Kuchnia po pracach', meta: 'AGD parowe · 5h' },
+      { caption: 'Materac', meta: 'Pranie ozonowe · 1 szt' },
     ],
   },
 
@@ -286,7 +279,6 @@ export const copy = {
     label: 'Opinie',
     eyebrow: '— Opinie',
     title: 'Zadowolenie klientów to nasza najlepsza reklama.',
-    lead: 'Dobra usługa broni się sama, ale nic nie buduje zaufania tak mocno jak opinie zadowolonych klientów.',
     status: 'Opinie z Google i Facebooka pojawią się tutaj wkrótce.',
     // TODO: podmień na prawdziwe opinie klientów (Google / Facebook)
     items: [
@@ -307,7 +299,7 @@ export const copy = {
       },
       {
         q: 'Czy można zamówić pojedyncze usługi dodatkowe?',
-        a: 'Tak. Można dobrać konkretne elementy usługi — na przykład piekarnik, mikrofalówkę, lodówkę, zmywarkę, pralkę, suszarkę, wnętrza szafek, czyszczenie fug, impregnację fug albo wybrane strefy wymagające mocniejszego doczyszczenia.',
+        a: 'Tak. AGD, fugi, wnętrza szafek, wybrane strefy — każdy element można dobrać osobno. Zakres ustalamy podczas wyceny.',
       },
       {
         q: 'Czy obsługiwani są tylko klienci prywatni?',
@@ -316,6 +308,10 @@ export const copy = {
       {
         q: 'Czy można zamówić stałą współpracę?',
         a: 'Tak. Oferujemy zarówno zlecenia jednorazowe, jak i współpracę cykliczną dopasowaną do potrzeb klienta.',
+      },
+      {
+        q: 'Co konkretnie obejmuje sprzątanie po remoncie?',
+        a: 'Wszystkie powierzchnie kontaktowe, AGD, okna i fugi po pracach budowlanych. Pełny zakres — kuchnia, łazienki, posadzki, taras — ustalamy podczas wyceny.',
       },
       {
         q: 'Jak najszybciej się skontaktować?',
@@ -328,8 +324,7 @@ export const copy = {
     label: 'Kontakt',
     eyebrow: '— Porozmawiajmy',
     title: 'Porozmawiajmy o Twoim zleceniu.',
-    caption:
-      'Szukasz firmy, która pracuje dokładnie, konkretnie i z wyczuciem? Odpowiadamy szybko — zwykle tego samego dnia.',
+    caption: 'Odpowiadamy szybko — zwykle tego samego dnia.',
     channels: [
       {
         kind: 'phone' as const,

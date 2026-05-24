@@ -24,24 +24,18 @@ export default function Pricing() {
           {/* Left column — header + CTA */}
           <header className="md:col-span-5 md:sticky md:top-32 space-y-6 self-start">
             <MaskReveal>
-              <p className="caption-mono text-ink/50">{p.eyebrow}</p>
+              <p className="caption-mono text-ink/60">{p.eyebrow}</p>
             </MaskReveal>
             <MaskReveal delay={0.05}>
               <h2
                 id="pricing-heading"
                 className="font-serif text-ink leading-[1.05] tracking-tight"
-                style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}
+                style={{ fontSize: 'clamp(1.75rem, 4vw, 3rem)' }}
               >
                 {p.title}
               </h2>
             </MaskReveal>
-            <MaskReveal delay={0.15}>
-              <p className="font-serif text-ink/75 text-lg md:text-xl leading-relaxed max-w-md">
-                {p.lead}
-              </p>
-            </MaskReveal>
-
-            <MaskReveal delay={0.25} className="pt-6">
+            <MaskReveal delay={0.15} className="pt-6">
               <MagneticButton
                 strength={0.15}
                 onClick={handleCta}
@@ -55,11 +49,6 @@ export default function Pricing() {
               </MagneticButton>
             </MaskReveal>
 
-            <MaskReveal delay={0.35}>
-              <p className="font-mono text-xs text-ink/45 max-w-xs leading-relaxed pt-2">
-                {p.footnote}
-              </p>
-            </MaskReveal>
           </header>
 
           {/* Right column — factors list */}

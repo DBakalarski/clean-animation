@@ -27,3 +27,13 @@
 - Stockowych ikon "miotła + bańka"
 - Płaskich fade-inów bez transformacji
 - Corporate blue
+
+## Audyt landinga — pattern orkiestracji
+Gdy user prosi o pełny / wielowymiarowy audit landinga („sprawdź landing", „przejrzyj z 3 perspektyw", „audyt copy + UX + mobile"), odpal w jednej wiadomości RÓWNOLEGLE 3 agenty:
+- `copy-auditor` — perspektywa tekstu (`lib/copy.ts` density, scanability, redundancja)
+- `ux-auditor` — perspektywa visual / spacing / hierarchii (3 viewporty, Playwright)
+- `mobile-motion-auditor` — perspektywa motion na 375 px (płynność animacji, touch, reduced-motion)
+
+Każdy zwraca samodzielny raport. Syntetyzujesz w finalny **TL;DR + Critical (P0) + Important (P1) + Handoff matrix** wskazujący dla każdej rekomendacji agenta-wykonawcę (`editorial-stylist`, `animation-architect`, `webgl-craftsman`, `quality-gate`, `seo-strategist`).
+
+Warunek: dev server na `:3000` (jeśli brak — agenty same odpalą `npm run dev`).

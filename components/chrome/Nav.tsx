@@ -36,23 +36,23 @@ export default function Nav() {
       className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm bg-paper/85 border-b border-ink/[0.06]"
       aria-label="Nawigacja główna"
     >
-      <div className="shell flex items-center justify-between gap-4 h-14 md:h-16">
-        {/* Brand — full name on md+, short CSK on mobile */}
+      <div className="shell flex items-center justify-between gap-4 h-14 lg:h-16">
+        {/* Brand — full name on lg+, short CSK below lg */}
         <a
           href="/"
           className="font-serif tracking-tight text-ink select-none inline-flex items-center min-h-[44px] shrink-0"
           aria-label={`${copy.nav.brand} — powrót na górę`}
         >
-          <span className="hidden md:inline text-lg md:text-xl">
+          <span className="hidden lg:inline text-lg lg:text-xl">
             {copy.nav.brand}
           </span>
-          <span className="md:hidden text-lg font-semibold">
+          <span className="lg:hidden text-lg font-semibold">
             {copy.nav.brandShort}
           </span>
         </a>
 
-        {/* Primary nav links — hidden on mobile (CTA below replaces) */}
-        <ul className="hidden md:flex items-center gap-6 md:gap-8" role="list">
+        {/* Primary nav links — visible only on lg+ where layout has room */}
+        <ul className="hidden lg:flex items-center gap-8" role="list">
           {copy.nav.links.map((link) => (
             <li key={link.href}>
               <a
@@ -65,11 +65,11 @@ export default function Nav() {
           ))}
         </ul>
 
-        {/* Sticky phone CTA — always visible */}
+        {/* Sticky phone CTA — always visible; number text from md+ so pill stays single-line */}
         <a
           href={copy.nav.phone.href}
           className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest
-                     bg-mint text-ink rounded-full px-4 py-2 min-h-[40px] md:min-h-[44px]
+                     bg-mint text-ink rounded-full px-4 py-2 min-h-[40px]
                      transition-colors duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)]
                      hover:bg-ink hover:text-paper
                      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
@@ -77,8 +77,8 @@ export default function Nav() {
           data-cursor="hover"
         >
           <span aria-hidden="true">☎</span>
-          <span className="hidden sm:inline">{copy.nav.phone.display}</span>
-          <span className="sm:hidden">Zadzwoń</span>
+          <span className="hidden md:inline">{copy.nav.phone.display}</span>
+          <span className="md:hidden">Zadzwoń</span>
         </a>
       </div>
     </nav>

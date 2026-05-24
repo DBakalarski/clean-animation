@@ -190,10 +190,10 @@ export function Hero() {
           {copy.hero.caption}
         </p>
 
-        {/* CTA cluster — 4 buttons, 2x2 grid on mobile, row on desktop */}
+        {/* CTA cluster — primary + outline, flex row */}
         <div
           ref={ctaRef}
-          className="mt-10 md:mt-14 grid grid-cols-2 md:flex md:flex-wrap gap-3 md:gap-4 max-w-2xl"
+          className="mt-10 md:mt-14 flex flex-wrap gap-3 md:gap-4"
           style={{
             opacity: 0,
             transform: 'translateY(20px)',

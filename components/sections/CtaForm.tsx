@@ -93,7 +93,7 @@ export default function CtaForm() {
           {/* Section heading */}
           <header className="mb-16 md:mb-24 max-w-3xl space-y-4">
             <MaskReveal>
-              <p className="caption-mono text-ink/50">{c.eyebrow}</p>
+              <p className="caption-mono text-ink/60">{c.eyebrow}</p>
             </MaskReveal>
             <MaskReveal delay={0.05}>
               <h2
@@ -312,15 +312,15 @@ function FloatingField({
   const isLifted = focused || value.length > 0;
 
   return (
-    <div className="relative pt-5">
+    <div className="relative pt-7">
       <label
         htmlFor={id}
         className={[
-          'absolute left-0 font-mono uppercase tracking-widest text-ink/50',
-          'transition-all duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none',
+          'absolute left-0 font-mono uppercase tracking-[0.1em] pointer-events-none',
+          'transition-all duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)]',
           isLifted
-            ? 'top-0 text-[0.65rem] text-ink/40'
-            : 'top-5 text-xs',
+            ? 'top-0 text-[0.6rem] text-ink/40'
+            : 'top-7 text-xs text-ink/55',
         ].join(' ')}
       >
         {label}
@@ -335,10 +335,13 @@ function FloatingField({
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         className={[
-          'w-full bg-transparent font-serif text-ink text-lg pb-3',
+          'w-full bg-transparent font-serif text-ink text-lg pt-1 pb-3',
           'border-b outline-none',
-          hasError ? 'border-ink/50' : 'border-ink/20',
-          focused ? 'border-ink' : '',
+          hasError
+            ? 'border-ink/50'
+            : focused
+              ? 'border-mint'
+              : 'border-ink/20',
           'transition-colors duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)]',
         ].join(' ')}
       />
@@ -360,15 +363,15 @@ function FloatingTextarea({ id, label, value, onChange }: FloatingTextareaProps)
   const isLifted = focused || value.length > 0;
 
   return (
-    <div className="relative pt-5">
+    <div className="relative pt-7">
       <label
         htmlFor={id}
         className={[
-          'absolute left-0 font-mono uppercase tracking-widest text-ink/50',
-          'transition-all duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none',
+          'absolute left-0 font-mono uppercase tracking-[0.1em] pointer-events-none',
+          'transition-all duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)]',
           isLifted
-            ? 'top-0 text-[0.65rem] text-ink/40'
-            : 'top-5 text-xs',
+            ? 'top-0 text-[0.6rem] text-ink/40'
+            : 'top-7 text-xs text-ink/55',
         ].join(' ')}
       >
         {label}
@@ -381,9 +384,9 @@ function FloatingTextarea({ id, label, value, onChange }: FloatingTextareaProps)
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         className={[
-          'w-full bg-transparent font-serif text-ink text-lg pt-2 pb-3 resize-none',
+          'w-full bg-transparent font-serif text-ink text-lg pt-1 pb-3 resize-none',
           'border-b outline-none',
-          focused ? 'border-ink' : 'border-ink/20',
+          focused ? 'border-mint' : 'border-ink/20',
           'transition-colors duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)]',
         ].join(' ')}
       />
@@ -403,18 +406,19 @@ interface FloatingSelectProps {
 
 function FloatingSelect({ id, label, value, onChange, options }: FloatingSelectProps) {
   const [focused, setFocused] = useState(false);
+  // Label is always lifted when focused or a real value is selected
   const isLifted = focused || value.length > 0;
 
   return (
-    <div className="relative pt-5">
+    <div className="relative pt-7">
       <label
         htmlFor={id}
         className={[
-          'absolute left-0 font-mono uppercase tracking-widest text-ink/50',
-          'transition-all duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none',
+          'absolute left-0 font-mono uppercase tracking-[0.1em] pointer-events-none',
+          'transition-all duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)]',
           isLifted
-            ? 'top-0 text-[0.65rem] text-ink/40'
-            : 'top-5 text-xs',
+            ? 'top-0 text-[0.6rem] text-ink/40'
+            : 'top-7 text-xs text-ink/55',
         ].join(' ')}
       >
         {label}
@@ -426,9 +430,11 @@ function FloatingSelect({ id, label, value, onChange, options }: FloatingSelectP
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         className={[
-          'w-full bg-transparent font-serif text-ink text-lg pb-3 pr-8',
+          'w-full bg-transparent font-serif text-lg pt-1 pb-3 pr-8',
           'border-b outline-none appearance-none cursor-pointer',
-          focused ? 'border-ink' : 'border-ink/20',
+          // When nothing selected, render in transparent so only the label is seen (not the "Wybierz…" placeholder text colliding with it)
+          value.length === 0 ? 'text-transparent' : 'text-ink',
+          focused ? 'border-mint' : 'border-ink/20',
           'transition-colors duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)]',
         ].join(' ')}
         style={{
