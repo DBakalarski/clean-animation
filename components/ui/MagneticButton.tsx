@@ -16,7 +16,7 @@ type MagneticButtonProps = {
 
 export function MagneticButton({
   children,
-  strength = 0.3,
+  strength = 0.15,
   className,
   onClick,
   type = 'button',

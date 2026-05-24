@@ -7,8 +7,8 @@ import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { MaskReveal } from '@/components/ui/MaskReveal';
 import { copy } from '@/lib/copy';
 
-// editorial-stylist extended copy keys — fall back gracefully
-const faqTitle = (copy.faq as Record<string, unknown>).title as string | undefined;
+const faqTitle = copy.faq.title;
+const faqEyebrow = copy.faq.eyebrow;
 
 function FaqItem({
   item,
@@ -96,29 +96,27 @@ function FaqItem({
 }
 
 export default function Faq() {
-  const { items, label } = copy.faq;
+  const { items } = copy.faq;
   const reduced = useReducedMotion();
 
   return (
     <LazyMotion features={domAnimation}>
-      <section id="faq" aria-labelledby="faq-heading" className="py-32 md:py-48 bg-paper">
+      <section id="faq" aria-labelledby="faq-heading" className="py-20 md:py-28 bg-paper">
         <div className="shell">
           {/* Section header */}
           <header className="mb-16 md:mb-24 space-y-4">
             <MaskReveal>
-              <p className="caption-mono text-ink/50">{label}</p>
+              <p className="caption-mono text-ink/50">{faqEyebrow}</p>
             </MaskReveal>
-            {faqTitle && (
-              <MaskReveal delay={0.1}>
-                <h2
-                  id="faq-heading"
-                  className="font-serif leading-[1.0] tracking-[-0.015em]"
-                  style={{ fontSize: 'clamp(2rem, 6vw, 5rem)' }}
-                >
-                  {faqTitle}
-                </h2>
-              </MaskReveal>
-            )}
+            <MaskReveal delay={0.1}>
+              <h2
+                id="faq-heading"
+                className="font-serif leading-[1.0] tracking-[-0.015em]"
+                style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}
+              >
+                {faqTitle}
+              </h2>
+            </MaskReveal>
           </header>
 
           {/* Accordion list — Framer Motion animated height */}

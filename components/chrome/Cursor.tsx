@@ -26,7 +26,7 @@ export function Cursor() {
     const onOver = (e: MouseEvent) => {
       const target = (e.target as HTMLElement).closest<HTMLElement>('[data-cursor="hover"]');
       if (target) {
-        gsap.to(dot, { scale: 3, duration: 0.35, ease: 'power3.out' });
+        gsap.to(dot, { scale: 1.8, duration: 0.35, ease: 'power3.out' });
       }
     };
 
@@ -57,10 +57,10 @@ export function Cursor() {
       aria-hidden="true"
       style={{
         position: 'fixed',
-        top: -6,
-        left: -6,
-        width: 12,
-        height: 12,
+        top: -5,
+        left: -5,
+        width: 10,
+        height: 10,
         borderRadius: '50%',
         backgroundColor: 'var(--color-mint)',
         mixBlendMode: 'difference',

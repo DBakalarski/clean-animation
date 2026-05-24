@@ -5,15 +5,19 @@ import { copy } from '@/lib/copy';
 
 export function Process() {
   return (
-    <section id="process" className="py-32 md:py-48">
+    <section id="process" aria-labelledby="process-heading" className="py-20 md:py-28">
       <div className="shell">
         {/* Eyebrow + heading */}
         <MaskReveal>
-          <span className="caption-mono text-ink/50">{copy.process.label}</span>
+          <span className="caption-mono text-ink/50">{copy.process.eyebrow}</span>
         </MaskReveal>
         <MaskReveal delay={0.1}>
-          <h2 className="font-serif text-ink mt-4 tracking-tighter">
-            {copy.process.title ?? 'Jak pracujemy.'}
+          <h2
+            id="process-heading"
+            className="font-serif text-ink mt-4 leading-[1.05] tracking-tight max-w-3xl"
+            style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}
+          >
+            {copy.process.title}
           </h2>
         </MaskReveal>
 

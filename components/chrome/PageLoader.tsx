@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from '@/lib/gsap';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
-import { EASE, DURATION } from '@/lib/easings';
+import { EASE } from '@/lib/easings';
 import { markPageReady } from '@/lib/pageReady';
 
 export function PageLoader() {
@@ -35,20 +35,20 @@ export function PageLoader() {
         },
       });
 
-      // 1. Reveal word "Czysto." upward mask
+      // 1. Reveal word "Konin" upward mask — faster
       tl.to(word, {
         clipPath: 'inset(0 0 0% 0)',
-        duration: DURATION.slow,
+        duration: 0.6,
         ease: EASE.expoOut,
       });
 
-      // 2. Small pause
-      tl.to({}, { duration: 0.4 });
+      // 2. Short pause
+      tl.to({}, { duration: 0.2 });
 
-      // 3. Slide entire overlay upward (clip-path bottom edge shrinks from bottom)
+      // 3. Slide entire overlay upward
       tl.to(overlay, {
         clipPath: 'inset(0 0 100% 0)',
-        duration: DURATION.slow,
+        duration: 0.5,
         ease: EASE.expoOut,
         onStart: () => {
           gsap.set(overlay, { willChange: 'clip-path' });
@@ -98,7 +98,7 @@ export function PageLoader() {
           display: 'inline-block',
         }}
       >
-        Czysto.
+        Konin.
       </span>
     </div>
   );

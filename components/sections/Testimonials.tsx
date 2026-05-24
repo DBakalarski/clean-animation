@@ -39,21 +39,36 @@ export function Testimonials() {
   if (reduced) {
     // Simple grid, no drag, no auto-marquee
     return (
-      <section id="testimonials" className="py-32 md:py-48">
+      <section id="testimonials" aria-labelledby="testimonials-heading" className="py-20 md:py-28">
         <div className="shell">
-          <MaskReveal>
-            <span className="caption-mono text-ink/50">{copy.testimonials.label}</span>
-          </MaskReveal>
+          <header className="mb-16 md:mb-20 max-w-3xl space-y-4">
+            <MaskReveal>
+              <span className="caption-mono text-ink/50">{copy.testimonials.eyebrow}</span>
+            </MaskReveal>
+            <MaskReveal delay={0.1}>
+              <h2
+                id="testimonials-heading"
+                className="font-serif text-ink leading-[1.05] tracking-tight"
+                style={{ fontSize: 'clamp(1.875rem, 4.5vw, 3.5rem)' }}
+              >
+                {copy.testimonials.title}
+              </h2>
+            </MaskReveal>
+          </header>
           <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
             {copy.testimonials.items.map((item, i) => (
               <MaskReveal key={i} delay={i * STAGGER.loose}>
-                <blockquote className="p-8 border border-ink/10">
+                <blockquote className="p-8 border border-ink/10 h-full flex flex-col justify-between">
                   <p className="font-serif text-xl text-ink leading-snug">&ldquo;{item.quote}&rdquo;</p>
-                  <footer className="font-mono text-xs text-ink/50 mt-4">— {item.author}</footer>
+                  <footer className="font-mono text-xs text-ink/50 mt-6">
+                    — {item.author}
+                    {item.role && <span className="block text-ink/40 mt-1 normal-case">{item.role}</span>}
+                  </footer>
                 </blockquote>
               </MaskReveal>
             ))}
           </div>
+          <p className="caption-mono text-ink/40 mt-12">{copy.testimonials.status}</p>
         </div>
       </section>
     );
@@ -61,10 +76,29 @@ export function Testimonials() {
 
   return (
     <LazyMotion features={domAnimation}>
-      <section ref={sectionRef} id="testimonials" className="py-32 md:py-48 overflow-hidden">
-        <div className="shell mb-12">
+      <section
+        ref={sectionRef}
+        id="testimonials"
+        aria-labelledby="testimonials-heading"
+        className="py-20 md:py-28 overflow-hidden"
+      >
+        <div className="shell mb-12 md:mb-16 max-w-3xl space-y-4">
           <MaskReveal>
-            <span className="caption-mono text-ink/50">{copy.testimonials.label}</span>
+            <span className="caption-mono text-ink/50">{copy.testimonials.eyebrow}</span>
+          </MaskReveal>
+          <MaskReveal delay={0.1}>
+            <h2
+              id="testimonials-heading"
+              className="font-serif text-ink leading-[1.05] tracking-tight"
+              style={{ fontSize: 'clamp(1.875rem, 4.5vw, 3.5rem)' }}
+            >
+              {copy.testimonials.title}
+            </h2>
+          </MaskReveal>
+          <MaskReveal delay={0.2}>
+            <p className="font-serif text-ink/70 text-lg leading-relaxed">
+              {copy.testimonials.lead}
+            </p>
           </MaskReveal>
         </div>
 
@@ -113,12 +147,19 @@ export function Testimonials() {
                   <p className="font-serif text-xl text-ink leading-snug">
                     &ldquo;{item.quote}&rdquo;
                   </p>
-                  <footer className="font-mono text-xs text-ink/50 mt-6">— {item.author}</footer>
+                  <footer className="font-mono text-xs text-ink/50 mt-6">
+                    — {item.author}
+                    {item.role && <span className="block text-ink/40 mt-1 normal-case">{item.role}</span>}
+                  </footer>
                 </blockquote>
               </m.div>
             ))}
           </div>
         </m.div>
+
+        <div className="shell mt-12">
+          <p className="caption-mono text-ink/40">{copy.testimonials.status}</p>
+        </div>
       </section>
     </LazyMotion>
   );

@@ -118,7 +118,7 @@ export function SplitText({
     } else {
       st = ScrollTrigger.create({
         trigger: el,
-        start: 'top 85%',
+        start: 'top 92%',
         once: true,
         onEnter: tweenSpans,
       });

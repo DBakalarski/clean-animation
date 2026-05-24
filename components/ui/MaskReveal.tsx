@@ -22,7 +22,7 @@ export function MaskReveal({
   as: Tag = 'div',
   delay = 0,
   from = 'bottom',
-  trigger = 'top 85%',
+  trigger = 'top 92%',
   className,
   style,
   ...rest

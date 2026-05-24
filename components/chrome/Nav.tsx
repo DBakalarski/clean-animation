@@ -17,7 +17,6 @@ export default function Nav() {
     const onScroll = ({ direction }: { direction: number }) => {
       const nav = navRef.current;
       if (!nav) return;
-      // direction 1 = scrolling down, -1 = scrolling up
       gsap.to(nav, {
         y: direction === 1 ? -80 : 0,
         duration: 0.45,
@@ -34,32 +33,53 @@ export default function Nav() {
     <nav
       ref={navRef}
       data-nav
-      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm bg-paper/80 border-b border-ink/[0.06]"
+      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm bg-paper/85 border-b border-ink/[0.06]"
       aria-label="Nawigacja główna"
     >
-      <div className="shell flex items-center justify-between h-14 md:h-16">
-        {/* Logo — serif, confident, no icon */}
+      <div className="shell flex items-center justify-between gap-4 h-14 md:h-16">
+        {/* Brand — full name on md+, short CSK on mobile */}
         <a
           href="/"
-          className="font-serif text-lg md:text-xl tracking-tight text-ink select-none inline-flex items-center min-h-[44px]"
-          aria-label={copy.nav.brand + ' — powrót na górę'}
+          className="font-serif tracking-tight text-ink select-none inline-flex items-center min-h-[44px] shrink-0"
+          aria-label={`${copy.nav.brand} — powrót na górę`}
         >
-          {copy.nav.brand}
+          <span className="hidden md:inline text-lg md:text-xl">
+            {copy.nav.brand}
+          </span>
+          <span className="md:hidden text-lg font-semibold">
+            {copy.nav.brandShort}
+          </span>
         </a>
 
-        {/* Primary nav links — mono, hover underline scaleX from left */}
-        <ul className="flex items-center gap-6 md:gap-10" role="list">
+        {/* Primary nav links — hidden on mobile (CTA below replaces) */}
+        <ul className="hidden md:flex items-center gap-6 md:gap-8" role="list">
           {copy.nav.links.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
-                className="link-underline font-mono text-xs uppercase tracking-widest text-ink/80 hover:text-ink transition-colors duration-300 inline-flex items-center min-h-[44px] min-w-[44px] justify-center"
+                className="link-underline font-mono text-xs uppercase tracking-widest text-ink/80 hover:text-ink transition-colors duration-300 inline-flex items-center min-h-[44px]"
               >
                 {link.label}
               </a>
             </li>
           ))}
         </ul>
+
+        {/* Sticky phone CTA — always visible */}
+        <a
+          href={copy.nav.phone.href}
+          className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest
+                     bg-mint text-ink rounded-full px-4 py-2 min-h-[40px] md:min-h-[44px]
+                     transition-colors duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)]
+                     hover:bg-ink hover:text-paper
+                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+          aria-label={`Zadzwoń: ${copy.nav.phone.display}`}
+          data-cursor="hover"
+        >
+          <span aria-hidden="true">☎</span>
+          <span className="hidden sm:inline">{copy.nav.phone.display}</span>
+          <span className="sm:hidden">Zadzwoń</span>
+        </a>
       </div>
     </nav>
   );
